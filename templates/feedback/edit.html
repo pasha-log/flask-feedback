@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <form class="edit" method="POST">
+        <h5>Edit Feedback</h5>
+            {{ form.hidden_tag() }}
+            {% for field in form if field.widget.input_type != 'hidden' %}
+                <br>
+                    <div class="form-group">
+                        {{ field.label }}
+                        {{ field }}
+                        {% for err in field.errors %}
+                            <small class="form-text text-danger">
+                                {{err}}
+                            </small>
+                        {% endfor %}
+                    </div>
+            {% endfor %}
+        <div class="buttons">
+            <button class="btn btn-success btn-lg">Save</button>
+            <a href="/users/{{ feedback.username }}>" class="btn btn-danger btn-lg">Go Back</a>
+        </div>
+    </form>
+{% endblock %}
