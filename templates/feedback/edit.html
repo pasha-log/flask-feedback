@@ -1,11 +1,13 @@
 {% extends "base.html" %} 
 
 {% block content %}
-    <form class="edit" method="POST">
-        <h5>Edit Feedback</h5>
-            {{ form.hidden_tag() }}
-            {% for field in form if field.widget.input_type != 'hidden' %}
-                <br>
+    <h1 id="title" class="display-1 text-center">Edit Feedback</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                    <br>
                     <div class="form-group">
                         {{ field.label }}
                         {{ field }}
@@ -15,10 +17,12 @@
                             </small>
                         {% endfor %}
                     </div>
-            {% endfor %}
-        <div class="buttons">
-            <button class="btn btn-success btn-lg">Save</button>
-            <a href="/users/{{ feedback.username }}>" class="btn btn-danger btn-lg">Go Back</a>
+                {% endfor %}
+                <div class="buttons">
+                    <button class="btn btn-success btn-lg">Save</button>
+                    <!-- <a href="/users/{{ feedback.username }}>" class="btn btn-danger btn-lg">Go Back</a> -->
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 {% endblock %}

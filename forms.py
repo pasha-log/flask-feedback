@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-# , TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField
 from wtforms.validators import InputRequired, Email, Length
 
 
@@ -23,7 +22,7 @@ class AddFeedbackForm(FlaskForm):
     """Add feedback as a user""" 
     
     title = StringField("Title", validators=[InputRequired(message="Title is required"), Length(max=100)])
-    content = StringField("Content", validators=[InputRequired(message="Content required")]) 
+    content = TextAreaField("Content", validators=[InputRequired(message="Content required")]) 
 
 class DeleteForm(FlaskForm): 
     """Intentionally blank."""

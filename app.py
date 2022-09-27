@@ -5,10 +5,17 @@ from forms import RegisterUserForm, LoginForm, AddFeedbackForm, DeleteForm
 from flask_sqlalchemy import SQLAlchemy 
 from sqlalchemy.exc import IntegrityError
 import os
+import re
 
-app = Flask(__name__) 
+app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///feedback_db'
+uri = os.environ.get('DATABASE_URL', 'postgresql:///feedback_db')
+if uri.startswith("postgres://"):
+ uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
+
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///feedback_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", 'ldcnlskdcasdl0094930')
@@ -111,6 +118,7 @@ def process_new_feedback(username):
         flash("Please login first!", "danger")
         return redirect('/') 
 
+    user = User.query.get(username) 
     form = AddFeedbackForm()
 
     if form.validate_on_submit():
@@ -123,7 +131,7 @@ def process_new_feedback(username):
 
         return redirect(f'/users/{ feedback.username }')
     else: 
-        return render_template("feedback/create.html", form=form)
+        return render_template("feedback/create.html", user=user, form=form)
 
 @app.route('/feedback/<int:feedback_id>/update', methods=["GET", "POST"])
 def edit_post(feedback_id): 
@@ -133,10 +141,9 @@ def edit_post(feedback_id):
         POST /feedback/<feedback_id>/update
             Updating a specific piece of feedback and redirect to /users/<username> — Making sure that only the user who has written that feedback can update it""" 
 
-
     feedback = Feedback.query.get(feedback_id) 
     
-    if "username" not in session:
+    if "username" not in session or feedback.username != session['username']:
         flash("Please login first!", "danger")
         return redirect('/')
 
