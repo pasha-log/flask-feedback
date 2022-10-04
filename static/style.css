@@ -1,3 +1,21 @@
-#main {
+a#main {
     font-family: 'Fredoka One', cursive;
+}
+
+div.container {
+    text-align: center;
+}
+
+div.feedback-container {
+    position: absolute;
+}
+
+ul.feedback {
+    display: inline-block;
+    text-align: left;
+}
+
+div.feedback-add {
+    position: absolute;
+    left: 1250px;
 }
