@@ -1,10 +1,10 @@
 # Flask Feedback 
 
-<img src='images/Screenshot (53).png' alt='' height='350' width='600'>
+<img src='static/images/Screenshot (53).png' alt='' height='350' width='600'>
 
-<img src='screenshots/Screenshot (55).png' alt='' height='350' width='600'>
+<img src='static/images/Screenshot (55).png' alt='' height='350' width='600'>
 
-<img src='screenshots/Screenshot (56).png' alt='' height='350' width='600'>
+<img src='static/images/Screenshot (56).png' alt='' height='350' width='600'>
 
 ## Description: 
 
